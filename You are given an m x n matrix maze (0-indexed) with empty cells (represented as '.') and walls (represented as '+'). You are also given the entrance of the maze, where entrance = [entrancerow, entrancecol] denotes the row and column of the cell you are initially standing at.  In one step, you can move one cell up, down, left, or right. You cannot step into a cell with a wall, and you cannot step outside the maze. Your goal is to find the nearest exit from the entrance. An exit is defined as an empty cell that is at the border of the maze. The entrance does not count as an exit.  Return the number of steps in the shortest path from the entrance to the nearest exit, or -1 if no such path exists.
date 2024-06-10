@@ -1,0 +1,29 @@
+class Solution {
+    public int nearestExit(char[][] maze, int[] entrance) {
+        Queue<Integer> q=new LinkedList();
+        int i=entrance[0],j=entrance[1];
+        q.add(i);q.add(j);
+        int level=-1;
+        boolean find=false;
+        while(!q.isEmpty() && !find){
+            int sz=q.size()/2;
+            for(int k=0; k<sz; k++){ 
+            i=q.remove(); j=q.remove();
+            if(i<0 || i >= maze.length || 
+                j>=maze[0].length || j<0 ){
+                if(level==0) continue;
+                return level ;
+            }
+            if(maze[i][j]=='+' || maze[i][j]=='v') continue;
+            maze[i][j]='v';
+            q.add(i);q.add(j+1);
+            q.add(i);q.add(j-1);
+            q.add(i+1);q.add(j);
+            q.add(i-1);q.add(j);
+            }
+            level++;
+        }
+        return -1;
+        
+    }
+}
